@@ -34,34 +34,34 @@ Seems like the Elvis operator is just something to be avoided.
 
 A tricky example:
 
-\$a = \"apples\" \<=\> \"bananas\";
-
-\$b = \$a ?? \$c ?? 10;
-
-echo \$b; // -1
+```
+$a = "apples" <=> "bananas";
+$b = $a ?? $c ?? 10;
+echo $b; // -1
+```
 
 So what is happening here is, if \$a is set, make \$b equal to \$a. \$a *is* set, with a value of -1. The temptation is to think that this -1 will be interpreted as condition=False, so echo \$b would return 10 (\$c not being set).
 
 But if you do this:
 
-\$c = \'foo\';
-
-\$a = \"apples\" \<=\> \"bananas\";
-
-\$b = true ?? \$c ?? 10;
-
-echo \$b;
+```
+$c = 'foo';
+$a = "apples" <=> "bananas";
+$b = true ?? $c ?? 10;
+echo $b;
+```
 
 ...you get 1. Same if the condition is \$a == -1. I do not understand what is going on here.
 
-\$a = \"apples\" \<=\> \"bananas\";
-
-\$b = \$c ?? \'bar\' ?? 10;
-
-echo \$b;
+```
+$a = "apples" <=> "bananas";
+$b = $c ?? 'bar' ?? 10;
+echo $b;
+```
 
 This returns 'bar'.
 
 If the first expression is set, then \$b takes the value of that expression.
 
 'if this var is set, take its value', which is not the same as 'if this *condition* is true...'.
+

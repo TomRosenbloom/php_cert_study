@@ -12,13 +12,12 @@ When you assign by reference like this:
 
 What does this output?
 
-\$a = \'1\';
-
-\$b = &\$a;
-
-\$b = \"2\$b\";
-
-echo \$a.\", \".\$b;
+```
+$a = '1';
+$b = &$a;
+$b = "2$b";
+echo $a.", ".$b;
+```
 
 Answer: 21, 21
 
