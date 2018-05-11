@@ -10,7 +10,15 @@ In UTF-8 the code-points 0-127 are the same as they were in ASCII, so for these 
 
 Examples:
 
-- Cyrillic **Я** is code point 1071 which is encoded in two bytes, 208 followed by 175, using the calculation (208%32)*64 + (175%64) = 1071
+- Cyrillic **Я** is code point 1071 which is encoded in two bytes, 208 followed by 175, using the calculation (208%32)*64 + (175%64) = 1071 (properly written U+1071.  English letter A is U+0041)
 - the Chinese ⾀ character is 226 followed by 190 then 128 (characters 224-239 act like double shifts)
 
 So this explains why you might see an Ã symbol (followed by some other random char). This is when a character was encoded using UTF-8 but is rendered with say ISO-8859-1 (the encoding for Latin-1). What you are seeing is the two UTF-8 bytes that make a single Unicode character being interpreted as two separate Latin-1 characters, where the Ã is at the code point used by a UTF-8 shift character.
+
+## In PHP
+
+PHP provides some functions for dealing with string encoding issues (via the mbstring extension), for e.g. mb_detect_encoding(), mb_convert_encoding(). 
+
+I'm not 100% clear on the how and why of using these - that needs some further investigation. These days most web apps and clients use UTF-8 but MS Office is a notable exception.
+
+Note there are mb versions of string function like mb_strlen() for use with multi-byte encodings.
