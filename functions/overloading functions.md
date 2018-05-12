@@ -16,7 +16,7 @@ This is a pretty deep subject and I don't have time for it now. Suffice to say P
 
 ### Example 1 print value of var
 
-(this is C, but v easy to follow [1][])
+(this is C, but v easy to follow [^source^][1])
 
 ```c
 #include <iostream>
@@ -97,7 +97,7 @@ $foo->findSum(10, 50, 30); //Sum is calculated to 90
 $foo->findSum(10.75, 101); //Sum is calculated to 111.75
 ```
 
-
+From: https://softwareengineering.stackexchange.com/questions/165467/why-php-doesnt-support-function-overloading
 
 ### Example 3: calculate area of shape
 
@@ -121,7 +121,7 @@ echo "Area of circle:".$circle->area(5)."</br>"; // display the area of circle
 echo "Area of rectangle:".$rect->area(5,10); // display area of rectangle
 ```
 
-
+https://www.mindstick.com/Articles/12162/overloading-and-overriding-in-php
 
 [1]: https://www.geeksforgeeks.org/function-overloading-c/
 [2]: https://www.mindstick.com/Articles/12162/overloading-and-overriding-in-php	"Example 3"
