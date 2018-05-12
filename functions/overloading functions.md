@@ -125,5 +125,5 @@ echo "Area of rectangle:".$rect->area(5,10); // display area of rectangle
 
 [1]: https://www.geeksforgeeks.org/function-overloading-c/
 [2]: https://www.mindstick.com/Articles/12162/overloading-and-overriding-in-php	"Example 3"
-[]: https://softwareengineering.stackexchange.com/questions/165467/why-php-doesnt-support-function-overloading	"Example 2"
+[3]: https://softwareengineering.stackexchange.com/questions/165467/why-php-doesnt-support-function-overloading	"Example 2"
 
