@@ -1,3 +1,5 @@
+
+
 # Function overloading
 
 ## What it is
@@ -16,7 +18,7 @@ This is a pretty deep subject and I don't have time for it now. Suffice to say P
 
 ### Example 1 print value of var
 
-(this is C, but v easy to follow [^source^][1])
+(this is C, but v easy to follow)
 
 ```c
 #include <iostream>
@@ -47,6 +49,8 @@ Here is int 10
 Here is float 10.1 
 Here is char* ten 
 ```
+
+From: https://www.geeksforgeeks.org/function-overloading-c/
 
 ### Example 2: sum of n numbers
 
