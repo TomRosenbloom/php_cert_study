@@ -23,6 +23,8 @@ I'm not 100% clear on the how and why of using these - that needs some further i
 
 Note there are mb versions of string function like mb_strlen() for use with multi-byte encodings.
 
-[^1]: https://www.smashingmagazine.com/2012/06/all-about-unicode-utf8-character-sets/ 
-[^2]: https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/
+------
 
+https://www.smashingmagazine.com/2012/06/all-about-unicode-utf8-character-sets/
+
+https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses
