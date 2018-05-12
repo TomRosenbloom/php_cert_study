@@ -10,13 +10,13 @@ You can do something like overloading in PHP - you can have a function that beha
 
 NB the reason for the difference is rigid v loose typing...
 
-This is a pretty deep subject and I don't have time for it now. Suffice to say PHP supports a version of overloading and it can be implemented as per the examples below. You may need to use functions func_num_args(), func_get_arg($i), func_get_args() (ihen you do it in a procedural style). For PHP certification you need to know how these functions work hence Q6 to test whether you know the difference between func_num_args() and func_get_args().
+This is a pretty deep subject and I don't have time for it now. Suffice to say PHP supports a version of overloading and it can be implemented as per the examples below. You may need to use functions func_num_args(), func_get_arg($i), func_get_args() (when you do it in a procedural style). For PHP certification you need to know how these functions work hence Q6 to test whether you know the difference between func_num_args() and func_get_args().
 
 [distinction between property overloading and method overloading https://medium.com/oceanize-geeks/phps-overloading-example-a432dd130169]
 
 ### Example 1 print value of var
 
-(this is C, but v easy to follow)
+(this is C, but v easy to follow [1][])
 
 ```c
 #include <iostream>
@@ -120,4 +120,10 @@ echo "Area of circle:".$circle->area(5)."</br>"; // display the area of circle
  $rect = new TDshape();
 echo "Area of rectangle:".$rect->area(5,10); // display area of rectangle
 ```
+
+
+
+[1]: https://www.geeksforgeeks.org/function-overloading-c/
+[2]: https://www.mindstick.com/Articles/12162/overloading-and-overriding-in-php	"Example 3"
+[]: https://softwareengineering.stackexchange.com/questions/165467/why-php-doesnt-support-function-overloading	"Example 2"
 
