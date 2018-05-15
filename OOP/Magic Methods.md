@@ -22,3 +22,13 @@ $myAccount->balance = 100; // Cannot set balance to 100
 echo $myAccount->nonExistingProperty; // No property nonExistingProperty
 ```
 
+## __clone
+
+Used to create a copy of an object. In Singleton pattern it must be disabled by overriding it with a blank call: 
+
+```
+prinate __clone() {};
+```
+
+
+

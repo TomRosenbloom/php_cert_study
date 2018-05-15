@@ -6,6 +6,8 @@ From the manual: "the double colon is a token that allows access to [static](ht
 
 The scope goes on the left hand side of the operator, the property or method on the right.
 
+## Static properties
+
 A **static property** (or 'member' ?) is a property that belongs to a class rather than a specific instance. So it is 'static' in the sense that it exists per class and will persist across instances of that class (but not in the sense that it doesn't change).
 
 ```php
@@ -25,7 +27,9 @@ $instance2->myMethod();
 // 4
 ```
 
-In this example $myStaticVar is the same variable in both instances of MyObject. NB it must be accessed with the *self* scope identifier, otherwise you get an undefined variable notice (and no other output in this particular example). 
+In this example (from the Kevin McArthur book) $myStaticVar is the same variable in both instances of MyObject. NB it must be accessed with the *self* scope identifier, otherwise you get an undefined variable notice (and no other output in this particular example). 
+
+### *Self* scope
 
 - *self* refers to the current class, and any instances of it
 - *this* refers to the current instance only
@@ -52,6 +56,8 @@ MyOtherObject::myExtendedMethod();
 
 [aside: instead of writing explicitly 'MyOtherObject' etc. you can use \_\_METHOD\_\_ or \_\_FUNCTION\_\_ and \_\_CLASS\_\_ , which is worth noting though it makes this example less clear]
 
+### *Parent* scope
+
 So, what's *parent* for? It simply allows you to reference the original definition of a method that has been overridden in an extending class.
 
 ```php
@@ -66,13 +72,47 @@ class ExtendingClass extends BaseClass {
 
 You would use this in a case where the extending class needs to define some additional functionality to an existing method.
 
-[There's a lot of this kind of thing in Django, done in a somewhat different way, e.g. when you create a model, you extend the *model* base object. This base object includes a *save* method which will do a default save action behind the scenes, but if you wanted to say manipulate some values before saving then you would use *def save(self, \*args, \*kwargs):* followed by additional functionality].
+[There's a lot of this kind of thing in Django, done in a somewhat different way, e.g. when you create a model, you extend the *model* base object. This base object includes amongst many others a *save* method which will do a default save action behind the scenes, but if you wanted to say manipulate some values before saving then you would use *def save(self, \*args, \*kwargs):* followed by additional functionality].
 
-A static variable (property) can be overridden in an extending class, and then both can be referenced in the extending class using parent::\$staticVar or self::\$staticVar.
+### Overriding static properties
 
-You can directly access a static variable without any object instantiation using *MyObject::$myStaticVar*.
+A static variable (property) can be overridden in an extending class, and then both can be referenced in the extending class using parent::\$staticVar or self::\$staticVar. These can have different values. If the parent static property has been changed in the base class or some other extending class, then overriding it in the current class will create a new variable with a distinct value. Example from McArthur:
 
-**Static methods**
+```php
+class MyObject {
+    public static $myStaticVar = 0;
+    function myMethod() {
+        self::$myStaticVar += 2;
+        echo self::$myStaticVar . "\n";
+    }
+}
+class MyOtherObject extends MyObject {
+    public static $myStaticVar = 0;
+    function myOtherMethod() {
+        echo parent::$myStaticVar . "\n";
+        echo self::$myStaticVar . "\n";
+    }
+}
+
+$instance1 = new MyObject();
+$instance1->myMethod();
+$instance2 = new MyObject();
+$instance2->myMethod();
+$instance3 = new MyOtherObject();
+$instance3->myOtherMethod();
+// 2
+// 4
+// 4
+// 0
+```
+
+
+
+### Directly access static properties
+
+You can directly access a static variable without any object instantiation using *InstanceOfMyObject::$myStaticVar*. Note you can only do this from an instantiated object and not a class (unlike with static *methods* which can be called without an object being instantiated - see below). 
+
+## Static methods
 
 ```php
 class MyObject {
@@ -84,11 +124,13 @@ MyObject::myMethod();
 // foo
 ```
 
-**Late static binding**
+Static methods work in a similar kind of way to static properties, though note you don't need to instantiate an object to directly access a static method of a class.
 
+## Late static binding
 
+There can be occasions where the *self* scope doesn't do quite what you would expect - see Example #1 in the manual. The introduction of the *static* scope fixes this - Example #2. This is 'late static binding'.
 
-
+As applied to the example above under Overriding static properties, changing *parent* to *static* in MyOtherObject->MyOtherMethod will echo 0 instead of 4.
 
 ------
 
