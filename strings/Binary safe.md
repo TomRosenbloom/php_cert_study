@@ -8,7 +8,7 @@ In an ideal world, all PHP functions would be binary safe and we'd never need to
 
 The concept of being 'binary safe' (in the specifically PHP sense) relates to string handling. 
 
-PHP strings are (or certainly used to be) strings of bytes, one byte per character, and hence supporting of the Latin-1 character set only (or just ASCII?), and not Unicode. For e.g. in an **old** SO comment someone gives this example [1][]:
+PHP strings are strings of bytes, one byte per character, and hence supporting of the Latin-1 character set only (or just ASCII?), and not Unicode. For e.g. in an **old** SO comment someone gives this example [1][]:
 
 ```php
 $str = "R&D - Solution";
