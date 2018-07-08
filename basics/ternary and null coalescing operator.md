@@ -16,9 +16,11 @@ $b = $a ?: 'foo';
 echo $b; // 1
 ```
 
-What I think is happening there is 'if \$a evaluates to true, then make \$b equal \$a', or 'if isset(\$a) then \$b = \$a else \$b = 'foo''. So that makes sense as a way of say using an input value if it exists and having a default value if it doesn't. No wait: 'This shortened version of the ternary operator is not suitable for testing if a variable exists, as the interpreter will throw a warning in this case'. Jesus.
+What I think is happening there is 'if \$a evaluates to true, then make \$b equal \$a', or 'if isset(\$a) then \$b = \$a else \$b = 'foo''. 
 
-## Null Coalescing Operator
+But beware: 'This shortened version of the ternary operator is not suitable for testing if a variable exists, as the interpreter will throw a warning in this case'. 
+
+## Null Coalescing Operator [PHP 7]
 
 *This* is what you should use (as a ternary operator) to test if a variable exists.
 

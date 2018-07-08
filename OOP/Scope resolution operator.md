@@ -116,7 +116,7 @@ You can directly access a static variable without any object instantiation using
 
 ```php
 class MyObject {
-    static function myMethod(){
+    public static function myMethod(){
         echo "foo";
     }
 }
