@@ -47,4 +47,54 @@ function findString() {
 echo findString();
 ```
 
-This will return the position in the texts folder of the first file containing 'foo'.
+This will return the position in the texts folder of the file containing 'foo' (on the assumption there is only one file containing that string). The problem is that every file is read before any examination of the contents takes place, so if the string was in the first file that would be a lot of wasted resource. So we use an iterator.
+
+```php
+class TextFileIterator implements Iterator {
+    private $position = 0;
+    private $texts;
+
+    public function __construct() {
+        $this->position = 0;
+        $path = './texts/';
+        $this->texts = glob($path . '*.txt');
+    }
+
+    public function current() {
+        return current($this->texts);
+    }
+
+    public function key(){
+        return key($this->texts);
+    }
+    public function next(){
+        next($this->texts);
+    }
+    public function rewind(){
+        reset($this->texts);
+    }
+    public function valid(){
+        return $this->key() !== null;
+    }
+}
+
+function findTextWithString(Iterator $texts) {
+    foreach ($texts as $key=>$text) {
+        if(strpos($text, 'foo') !== false){
+            return $key;
+        }
+    }
+    return -1;
+}
+
+function findString() {
+    return findTextWithString(new TextFileIterator());
+}
+
+echo findString();
+```
+
+https://talesoft.codes/post/details/php-iterators
+
+
+
