@@ -108,7 +108,7 @@ From: https://softwareengineering.stackexchange.com/questions/165467/why-php-doe
 ```php
 class TDshape {
 const Pi = 3.142 ;  // constant value
- function __call($fname, $argument){
+ function __call($name, $argument){
     if($name == 'area')
         switch(count($argument)){
             case 0 : return 0 ;

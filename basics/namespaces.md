@@ -115,7 +115,7 @@ $a = new ArrayObject;
 
  ...unless we put a forward slash before ArrayObject. [Note the Exception class is post-5.3]
 
-NB there can be valid reasons for defining a local version of a standard post-5.3 PHP class, which is 'overloading' of classes/functions - something found more commonly in other languages e.g. C. Overloading is 'the ability to create multiple functions of the same name with different implementations'. I've come across this idea before, but not sure why you would want to do it... Wikipedia: "Calls to an overloaded function will run a specific implementation of that function appropriate to the context of the call, allowing one function call to perform different tasks depending on context."
+NB there can be valid reasons for defining a local version of a standard post-5.3 PHP class, which is 'overloading' of classes/functions - something found more commonly in other languages e.g. C. Overloading is 'the ability to create multiple functions of the same name with different implementations'. I've come across this idea before, but not sure why you would want to do it... Wikipedia: "Calls to an overloaded function will run a specific implementation of that function appropriate to the context of the call, allowing one function call to perform different tasks depending on context." [Actually, I've done a piece elsewhere about overloading in PHP, with some examples. Another piece on magic methods is also relevant]
 
 ## Unqualified/qualified/ fully qualified names
 
@@ -124,4 +124,16 @@ If you want to use a class, function or constant from your current namespace, yo
 If you want to access something in a namespace that is a sub-namespace of the current namespace, you use a qualified name, as with $test = new Baz\Wibble in the example above.
 
 Finally, if you put a backslash at the front like $test = new \Baz\Wibble that makes the name fully qualified, i.e. relative to the global namespace. This gives you access to namespaces above your current place in the namespace hierarchy.
+
+## \_\_NAMESPACE\_\_ constant
+
+If you ever want to know what namespace you are in, you can *echo  \_\_NAMESPACE\_\_;*
+
+```php
+namespace Baz;
+
+use \Foo as Foo;
+
+echo __NAMESPACE__; // Baz - not, of course, Foo
+```
 
