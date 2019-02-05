@@ -106,7 +106,7 @@ $test = new Wibble; // whereas this doesn't
 $test = new Baz\Wibble;
 ```
 
-Note: sometimes you might see a standard php class or function preceded with a forward slash, like $date = new \DateTime(). That is I believe just a precaution to ensure that it is the global version that is being used and not some local version with the same name. It doesn't mean - I don't think - that once you declare a local namespace you won't be able to use the standard functions *without* the forward slash. In fact it *does* mean that, but only for classes and functions that were added after namespacing was introduced in PHP 5.3. So, for e.g. something like strpos will always work anywhere without a forward slash, but this will generate an error:
+Note: sometimes you might see a standard php class or function preceded with a forward slash, like $date = new \DateTime(). ~~That is I believe just a precaution to ensure that it is the global version that is being used and not some local version with the same name. It doesn't mean - I don't think - that once you declare a local namespace you won't be able to use the standard functions *without* the forward slash~~. In fact it *does* mean that, but only for classes and functions that were added after namespacing was introduced in PHP 5.3. So, for e.g. something like strpos will always work anywhere without a forward slash, but this will generate an error:
 
 ```php
 namespace Baz;
@@ -114,6 +114,8 @@ $a = new ArrayObject;
 ```
 
  ...unless we put a forward slash before ArrayObject. [Note the Exception class is post-5.3]
+
+This also holds for locally defined functions. Once you declare a namespace at the start of a script, then every class that is referenced in the script must be found in that namespace. If not you'll get a fatal 'class not found' error. The quick fix for this is to precede the not-found class name with a forward slash, because that will tell php to look in the global namespace.
 
 NB there can be valid reasons for defining a local version of a standard post-5.3 PHP class, which is 'overloading' of classes/functions - something found more commonly in other languages e.g. C. Overloading is 'the ability to create multiple functions of the same name with different implementations'. I've come across this idea before, but not sure why you would want to do it... Wikipedia: "Calls to an overloaded function will run a specific implementation of that function appropriate to the context of the call, allowing one function call to perform different tasks depending on context." [Actually, I've done a piece elsewhere about overloading in PHP, with some examples. Another piece on magic methods is also relevant]
 
@@ -136,4 +138,8 @@ use \Foo as Foo;
 
 echo __NAMESPACE__; // Baz - not, of course, Foo
 ```
+
+
+
+https://mattstauffer.com/blog/a-brief-introduction-to-php-namespacing/
 

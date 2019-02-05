@@ -126,6 +126,35 @@ MyObject::myMethod();
 
 Static methods work in a similar kind of way to static properties, though note you don't need to instantiate an object to directly access a static method of a class.
 
+## Concrete example
+
+A nice example of a concrete use for a static properties and methods comes from the Traversy MVC course. He defines a User class that has properties $name and $age, and also a static property $minPasswordLength (with a default value of 6). He also defines a static method to validate password length.  
+
+```php
+  class User {
+    public $name;
+    public $age;
+    public static $minPassLength = 6;
+
+    public static function validatePass($pass){
+      if(strlen($pass) >= self::$minPassLength){
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+  $password = 'hello1';
+  if(User::validatePass($password)){
+    echo 'Password valid';
+  } else {
+    echo 'Password NOT valid';
+  }
+```
+
+So static properties/methods are allowing you to create and use generalised properties about users that you can use without reference to a specific user object.
+
 ## Late static binding
 
 There can be occasions where the *self* scope doesn't do quite what you would expect - see Example #1 in the manual. The introduction of the *static* scope fixes this - Example #2. This is 'late static binding'.
