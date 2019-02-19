@@ -8,20 +8,104 @@ This function is likely to be at the heart of an MVC application, as the final p
 call_user_func_array(callable $callback, array $param_arr);
 ```
 
-There's two important things that this allows you to do:
+What this allows you to do is call functions dynamically.
 
-1. ### call functions dynamically 
+We can create some code that will call a function that will be determined only at run time i.e. the name of the function is extracted/created from some sort of (user) input . That is what happens in MVC where the name of the function comes from the URL (either directly, or via some form of route mapping).
 
-   We can create some code that will call a function that will be determined only at run time i.e. the name of the function is extracted/created from some sort of (user) input . That is what happens in MVC where the name of the function comes from the URL (either directly, or via some form of route mapping).
+The function must be 'callable'. That means something that would pass the php is_callable() test - it must exist, but also be capable of being executed in the current context/scope.
 
-   The function must be 'callable'. That means something that would pass the php is_callable() test - it must exist, but also be capable of being executed in the current context/scope.
+Note that call_user_func_array further allows you to call a function that is defined as a method of a class - instead of passing a string (the function name) as first parameter, you pass an array of two strings, the names of the class and method respectively).
 
-2. ### have a variable number of parameters
+The arguments are supplied via the second parameter, an array. Obviously that's a required mechanism because in order to call functions dynamically we have to be able to vary the number of arguments, because different functions have different numbers of parameters. Note that if you supply the wrong number of arguments for the function that you call, an error will be raised - unless there are *more* arguments than specified in the function definition, in which case the extra ones will just be ignored. 
 
-   Since the 
+### Example
+
+```php
+class EventController
+{
+    static function eventsInRange($id, $order, $postcode, $range)
+    {
+        echo "List events within $range miles of postccode $postcode";
+        echo " ordered by $order and highlighting event with id $id";
+    }
+    
+    static function eventsOnDate($date)
+    {
+        echo "List events on date $date";
+    }
+    
+}
+
+call_user_func_array(['EventController','eventsInRange'], ['1', 'date', 'BS5 6EP', '10']);
+// List events within 10 miles of postccode BS5 6EP ordered by date and highlighting event with id 1
+
+$controller = 'EventController';
+$action = 'eventsOnDate';
+$params = ['10-1-2020'];
+call_user_func_array([$controller, $action],$params);
+// List events on date 10-1-2020
+
+```
+
+NB you get a E_DEPRECATED warning if the functions are not defined as static.
+
+This example shows the kind of way call_user_func_array might be used in an MVC system.  
 
 
 
 
 
-[look into *function($foo) use ($bar){}*, also 'currying']
+## Variadic functions in PHP
+
+In an earlier draft I said that call_user_func_array allows you to create variadic functions, but that's not actually true as we can see above. It allows us to call functions dynamically, but whatever function we call must be supplied with the correct number of arguments. So that's perhaps a limitation in some MVC scenarios e.g. in a CRUD application where we want to pass some but not all of id, order, search terms, page number, postcode, range, and any number of filters.
+
+PHP supports variadic functions via **func_get_args** and its kin (func_get_arg, func_num_args). An example:
+
+```php
+function variadicFunction()
+{
+    $args = func_get_args();
+    var_dump($args);
+    echo func_get_arg(0);
+}
+
+call_user_func_array('variadicFunction', [1,2,3]);
+// array(3) { [0]=> int(1) [1]=> int(2) [2]=> int(3) }
+// 1
+```
+
+func_get_args can of course only be called from within a user-defined function.
+
+## The ... operator
+
+As of PHP 5.6 you can use the ... ~~operator~~ token (the 'splat') to implement variadic functions, instead of func_get_args.
+
+Example from the manual:
+
+```php
+function sum(...$numbers) {
+    $acc = 0;
+    foreach ($numbers as $n) {
+        $acc += $n;
+    }
+    return $acc;
+}
+
+echo sum(1, 2, 3, 4);
+```
+
+This operator/token can also be used to do this Pythonesque packing/unpacking of parameters:
+
+```
+function add($a, $b) {
+    return $a + $b;
+}
+
+echo add(...[1, 2])."\n";
+// 3
+
+$a = [1, 2];
+echo add(...$a);
+// 3
+```
+

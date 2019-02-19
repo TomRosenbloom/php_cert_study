@@ -41,3 +41,5 @@ Below (and above quoted definitions) from https://blogs.agilefaqs.com/2011/07/11
 People often criticize PHP for being dynamically and weakly typed, which is often thought to be a disastrous combination.
 
 There is tons of opinionated stuff out there, particularly stuff slating weak typing. But the pragmatic reality is that for web development, which is the domain of PHP (and JavaScript, another 'offender') weak typing is not such a bad thing and does have some benefits (e.g. because user input is always in string form).
+
+One definite downside of weak typing in PHP is the constant need to check for the types of things with functions like is_numeric, is_object etc. But you can (now) get round this with type hinting.

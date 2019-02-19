@@ -10,5 +10,7 @@ function foo(string $bar){
 
 If you pass anything other than a string an error will be raised.
 
-The type isn't restricted to predefined data types like string, array, object, etc. but can include user defined class names.
+In PHP 5 type hinting was limited, perhaps surprisingly, to array, and specific object classes, and *didn't* include scalar types int, float, bool, string. 
+
+Type hinting reduces the scope for unexpected behaviour caused by wrong types being used, and by same token saves you the aggro of constantly using functions like is_numeric, is_integer etc. etc.
 
