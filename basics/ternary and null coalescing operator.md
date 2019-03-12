@@ -18,11 +18,11 @@ echo $b; // 1
 
 What I think is happening there is 'if \$a evaluates to true, then make \$b equal \$a', or 'if isset(\$a) then \$b = \$a else \$b = 'foo''. 
 
-But beware: 'This shortened version of the ternary operator is not suitable for testing if a variable exists, as the interpreter will throw a warning in this case'. 
+But beware: 'This shortened version of the ternary operator is not suitable for testing if a variable exists, as the interpreter will throw a warning in this case'. Which is an important warning, because you might otherwise think that you can use the Elvis to assign default values i.e. if this value is not set (evaluates to false) assign a value.
 
 ## Null Coalescing Operator [PHP 7]
 
-*This* is what you should use (as a ternary operator) to test if a variable exists.
+*This* is what you should use (as a ternary operator) to test if a variable exists/set a default value.
 
 \$sortDir = \$\_GET\['sort\_dir'\] ?? 'ASC';
 
@@ -66,4 +66,12 @@ This returns 'bar'.
 If the first expression is set, then \$b takes the value of that expression.
 
 'if this var is set, take its value', which is not the same as 'if this *condition* is true...'.
+
+## Ternary echo-ing
+
+echo(*condition*) ? *condition true* : *condition false*;
+
+```php
+echo($data['post_vars']['feed'] == $feed['id']) ? 'selected = "selected"' : '';
+```
 

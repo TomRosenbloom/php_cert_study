@@ -51,13 +51,48 @@ NB you get a E_DEPRECATED warning if the functions are not defined as static.
 
 This example shows the kind of way call_user_func_array might be used in an MVC system.  
 
+### Calling inbuilt PHP functions dynamically
 
+NB the callable supplied to call_user_func can be a php function. 
+
+```php
+$foo = 'wibble';
+call_user_func('print_r', $foo);
+```
+
+Same goes for call_user_func_array, array_map and other function handling functions. Here is a fairly complicated example of this in action, based on https://stackoverflow.com/a/31411350
+
+The scenario is, the user can filter a list of events in two ways, by postcode/range and by feed (the external feed that was the source of the event). Other filters could be added. Each filter is done separately and the returned event data is serialised before being added to an array. Then we apply array_intersect to that array of serialised objects, which finds any that appear in both filter results. Finally we re-serialise. I daresay there may be better ways of doing this. It's definitely a good idea to serialise arrays before comparing them, if it's just a straight comparison we are after - that is true in this case since we know that any matching result arrays will be identical. 
+
+```php
+public function getFiltered(PostcodeRange $range, int $feed_id)
+{
+    $filterResults = [];
+    if(isset($feed_id))
+    {
+        $filteredByFeed = $this->getWhereWithJoin(array(
+            array('name'=>'feed_id', 'comparison'=>'=', 'value'=>$feed_id)
+        ));
+        $filterResults['filteredByFeed'] = array_map('serialize', $filteredByFeed);
+
+    }
+    if(isset($range)) {
+        $postcode = $range->getPostcode();
+        $rangeKm = $range->getRangeKm();
+        $filteredByRange = $this->getEventsInRange($postcode, $rangeKm);
+        $filterResults['filteredByRange'] = array_map('serialize', $filteredByRange);
+    }
+
+    return array_map('unserialize', call_user_func_array('array_intersect', $filterResults));
+
+}
+```
 
 
 
 ## Variadic functions in PHP
 
-In an earlier draft I said that call_user_func_array allows you to create variadic functions, but that's not actually true as we can see above. It allows us to call functions dynamically, but whatever function we call must be supplied with the correct number of arguments. So that's perhaps a limitation in some MVC scenarios e.g. in a CRUD application where we want to pass some but not all of id, order, search terms, page number, postcode, range, and any number of filters.
+In an earlier draft I said that call_user_func_array allows you to create variadic functions, but that's not actually true as we can see above. It allows us to call functions *dynamically*, but whatever function we call must be supplied with the correct number of arguments. So that's perhaps a limitation in some MVC scenarios e.g. in a CRUD application where we want to pass some but not all of id, order, search terms, page number, postcode, range, and any number of filters.
 
 PHP supports variadic functions via **func_get_args** and its kin (func_get_arg, func_num_args). An example:
 
