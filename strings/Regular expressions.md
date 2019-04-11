@@ -8,7 +8,7 @@ The most common use cases I can think of in PHP are for validation of user input
 
 Regular expressions contain a mixture of literal characters and meta-characters, which can define alternate characters, ranges of characters, 'wildcards' etc. etc.
 
-https://www.regular-expressions.info/ is the motherlode for RE info.
+https://www.regular-expressions.info/ is the motherlode for general RE info.
 
 ## PCRE syntax
 
@@ -94,7 +94,7 @@ Round brackets delimit subpatterns, which can do two things:
 
 ##### Capturing subpatterns
 
-if you supply preg_match() for e.g. with its third parameter *matches*, then that parameter is returned with the results of the matching operation (otherwise known as back references). So:
+if you supply preg_match() for e.g. with its third parameter *matches*, then that parameter is returned with the results of the matching operation. So:
 
 ```php
 preg_match('/(foo)(bar)(baz)/', 'foobarbaz', $matches);
@@ -124,7 +124,7 @@ print_r($matches); // Array ( [0] => foobarbaz [1] => foobarbaz [2] => foobarbaz
 
 ...adding yet another set of brackets means another match for foobarbaz is returned, but that makes sense.
 
-You can supress the capturing of sub-patterns in cases where this dual function of round brackets is unwanted:
+You can **supress the capturing of sub-patterns** in cases where this dual function of round brackets is unwanted:
 
 ```php
 preg_match('/(?i:saturday|sunday)/', 'sunday', $matches);
@@ -170,11 +170,57 @@ preg_match('/(?:(Sat)ur|(Sun))day/', 'Sunday', $matches);
 print_r($matches); // Array ( [0] => Sunday [1] => [2] => Sun )
 ```
 
-This is really badly explained in the manual... fuck it.
+This is really badly explained in the manual... fuck it, come back to it later.
 
-#### ? + *
+#### ? + * { }
 
-The examples above show how *?* extends the meaning of the opening bracket character. It is also a *quantifier* along with * and +. 
+The examples above show how *?* extends the meaning of the opening bracket character. It is also a **quantifier for repetition** along with * and + and curly brackets.
+
+The basic way of quantifying repetition is to use curly brackets containing numbers for min and max, separated by a comma (the second number can be omitted). The other quantifier characters are abbreviations of this format. Quantifiers can follow any of:
+
+- a single character
+- the . metacharacter
+- a character class
+- a back reference
+- a subpattern in parentheses
+
+You can omit: the second number but not the comma - meaning there is no upper limit, or the second number *and* the comma, meaning the number specifies an exact number of matches. 
+
+Examples:
+
+- z{2,4} matches 'zz', 'zzz', or 'zzzz'
+- z{2,} matches 'zz', 'zzz', 'zzzz' ...
+- z{2} matches 'zz' only
+
+The ? + and * symbols are abbreviations of the above:
+
+| Symbol | Equivalent | Meaning                |
+| ------ | ---------- | ---------------------- |
+| *      | *{0,}*     | any number of, or none |
+| *+*    | *{1,}*     | one or more of         |
+| *?*    | *{0,1}*    | one or none of         |
+
+##### Greediness/laziness
+
+Quantifiers are by default 'greedy', meaning they match as much as possible. This can be a problem e.g. when matching code comments between `/*` and `*/`, if you use pattern `/|*.*|*/` on the subject `/* a comment */ some code /* another comment */` this will fail because the whole subject will be matched. This can be fixed using ? to enforce laziness:  `/|*.*?|*/` . Note the ? doesn't so much enforce laziness as reverse the current behaviour. It is possible to set option PCRE_UNGREEDY in which case the ? will enforce greediness.
+
+### Back references
+
+> Outside a character class, a backslash followed by a digit greater than 0 (and possibly further digits) is a back reference to a capturing subpattern earlier (i.e. to its left) in the pattern, provided there have been that many previous capturing left parentheses.
+
+Example:
+
+*`(sens|respons)e and \1ibility`* matches "sense and sensibility" and "response and responsibility" but not "sense and responsibility".
+
+### Assertions
+
+### Once-only subpatterns
+
+### Conditional subpatterns
+
+### Recursive patterns
+
+
 
 
 

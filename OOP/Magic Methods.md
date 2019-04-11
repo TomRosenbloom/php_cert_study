@@ -12,6 +12,12 @@ A further difference is that magic methods are *methods* i.e. they are designed 
 
 The most commonly used magic method is \_\_construct(), which of course is invoked automatically when an object is instantiated.   
 
+## __destruct
+
+__destruct() is a bit of housekeeping, destroying an object once you've finished with it. But when do you ever actually need to do this? 
+
+One example: when I was working on a paginator class in my DIY MVC, I first applied my paginator class to a listing of every item from the database - on the principle of using the easiest test case. When I got that working, I applied it to the database listing with filters/search/ordering. I found on the first test that the old paginator object used in the first test case was still in memory so the first test of the second case started on whatever was the last page of the testing of the first case. So I think this would have been avoided by using a destructor.
+
 ## \_\_get and \_\_set
 
 Used for 'property overloading'. 
