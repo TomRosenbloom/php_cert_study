@@ -4,7 +4,7 @@ I like the coverage of DI in this article: https://hackernoon.com/magic-methods-
 
 As he says, DI is "a 25-dollar term for a 5-cent concept". Actually I think he may have nicked that from: https://www.jamesshore.com/Blog/Dependency-Injection-Demystified.html
 
-Anyway, DI just means that where you have a piece of code that depends on some other piece of code, you send that second bit of code in from outside in a very explicit and clear way rather than calling it invisibly from within the first piece of code. Note that the second piece of code, the dependency, is typically something very simple - perhaps just a variable name - or it may be a reference to a larger piece of code.
+Anyway, DI just means that where you have a piece of code that depends on some other piece of code, you send that second bit of code in from outside in a very explicit and clear (and compulsory) way rather than calling it invisibly from within the first piece of code. Note that the second piece of code, the dependency, is typically something very simple - perhaps just a variable name - or it may be a reference to a larger piece of code.
 
 I think it's probably true that DI isn't *necessarily* only applicable to OOP, but it is generally an OOP thing, and in that context, and quoting the second ref above, "Dependency injection means giving an object its instance variables". That is, giving one object the other objects that it needs rather than having it construct them itself https://stackoverflow.com/a/140655.
 
