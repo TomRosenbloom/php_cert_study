@@ -14,6 +14,6 @@ Anyway, what do we actually mean by native Unicode support, or lack thereof?
 
 Again, you can see why in the days of PHP's inception, when pretty much everything on the Web was in English and Unicode wasn't a widely accepted standard, it made sense to design things this way. Multi-byte support would have seemed like a massive and unnecessary overhead, if they even considered it.
 
-Note that PHP does have support for Unicode. There are multi-byte versions of some of the basic string handling functions, and there are many functions concerned with character encoding and decoding. But you do have to be careful and you do need to know what you are doing.
+Note that PHP does have support for Unicode via non-native extensions. There are multi-byte versions of some of the basic string handling functions, and there are many functions concerned with character encoding and decoding. But you do have to be careful and you do need to know what you are doing.
 
 Note also, this topic relates to the concept of functions being 'binary safe' or not in PHP (see other notes). Older PHP functions might not be 'binary safe' because they assume that the (string) data they handle is 1 byte = 1 character. So they are fine handling ASCII, or Latin-1, or the lower reaches of Unicode, but strange things will happen if you hand them binary data that includes bytes that do anything other than represent a single character.

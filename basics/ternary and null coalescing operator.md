@@ -16,9 +16,11 @@ $b = $a ?: 'foo';
 echo $b; // 1
 ```
 
-What I think is happening there is 'if \$a evaluates to true, then make \$b equal \$a', or 'if isset(\$a) then \$b = \$a else \$b = 'foo''. 
+So what is happening there is 'if \$a evaluates to true, then make \$b equal \$a', or 'if isset(\$a) then \$b = \$a else \$b = 'foo''. 
 
-But beware: 'This shortened version of the ternary operator is not suitable for testing if a variable exists, as the interpreter will throw a warning in this case'. Which is an important warning, because you might otherwise think that you can use the Elvis to assign default values i.e. if this value is not set (evaluates to false) assign a value.
+But no: 'This shortened version of the ternary operator is not suitable for testing if a variable exists, as the interpreter will throw a warning in this case'. Which is an important warning, because you might otherwise think that you can use the Elvis to assign default values i.e. if this value is not set (evaluates to false) assign a value.
+
+So more precisely what the example does is (1) evaluate the expression and assign the value to $b, and (2) the expression returns the value of $a because, as $a exists, the expression '$a' evaluates to True. If you make $a = "bar", it returns "bar", the value of $a (so the original example is slightly ambiguous). If you make $a = "", you get "foo", because empty string evaluates to False, but if you don't set a value for $a you get an undefined variable notice (followed by "foo"). So you *can* use elvis to set a default value to an undefined var with `$a = $a ?: "foo"`, but you don't because that will also generate the error notice. It's also not really correct because it doesn't distinguish between empty string (and other things that evaluate to False) and an undefined variable, which are two very different things.
 
 ## Null Coalescing Operator [PHP 7]
 
@@ -32,7 +34,7 @@ These can be chained:
 
 So, you can go through a succession of vars before ending with a concrete default value.
 
-Seems like the Elvis operator is just something to be avoided.
+[Seems like the Elvis operator is just something to be avoided - is there any case for using it? https://stackoverflow.com/questions/34571330/php-ternary-operator-vs-null-coalescing-operator]
 
 A tricky example:
 

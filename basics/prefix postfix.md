@@ -17,7 +17,7 @@ Surprisingly (with the addition of commas and spaces between the echo statements
 
 First of all for clarity \$x+++\$x++ is equivalent to \$x++ + \$x++. But still I thought that would come to 13, or possibly 12, but 11 was a surprise. The reason is that with the increment done 'postfix' i.e. \$x++, rather than the alternative 'prefix', ++\$x, the value used is the value *before* the increment. That is, \$x++ means, 'use \$x, then increment it'.
 
-So I still don't quite get this but I think the way \$x+++\$x++ goes is:
+So the way \$x+++\$x++ goes is:
 
 1.  take the value of \$x on the left hand side of the addition operation (5) and use that as the first operand
 

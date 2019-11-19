@@ -2,7 +2,9 @@ GET v POST
 
 This was a question asked in interview, which I didn't answer as well as I could have.
 
-What I didn't say clearly is that as the names imply GET is primarily for retrieving/requesting data and POST for sending/submitting. What I did say is that with POST the user data is in the body of the request and in GET is part of the URL. What I also said correctly is that whilst GET may be seen as less secure because parameter names are exposed, POST is not inherently any more secure than GET, assuming you are not so stupid as to pass sensitive data via the URL. In fact, GET should 'not be used for operations that cause side-effects' but only to 'request a representation of the specified resource'.
+What I didn't say clearly is that as the names imply GET is primarily for retrieving/requesting data and POST for sending/submitting. What I did say is that with POST the user data is in the body of the request and in GET is part of the URL. What I also said correctly is that whilst GET may be seen as less secure because parameter names are exposed, POST is not inherently any more secure than GET, assuming you are not so stupid as to pass sensitive data via the URL. 
+
+More succinctly, GET should 'not be used for operations that cause side-effects' but only to 'request a representation of the specified resource'.
 
 Other differences:
 

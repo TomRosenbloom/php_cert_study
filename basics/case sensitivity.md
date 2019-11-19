@@ -6,7 +6,7 @@ Language constructs and keywords are case insensitive, so 'echo' and 'ECHO' for 
 
 User-defined function names are also case insensitive, as are class names, class methods and namespaces.
 
-I suppose the sort of logic (or at least a way of remembering) is that the things that are case sensitive are variables and things *like* variable e.g. constants, array keys, class properties. I'm saying they are like variables in the sense that they are things that have a value and a name (perhaps in the technically they might be things that are stored via symbol table/zval?)
+I suppose the sort of logic (or at least a way of remembering) is that the things that are case sensitive are variables and things *like* variables e.g. constants, array keys, class properties. I'm saying they are like variables in the sense that they are things that have a value and a name (perhaps in the technically they might be things that are stored via symbol table/zval?)
 
 ## Case sensitive
 
